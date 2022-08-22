@@ -5,8 +5,7 @@ from rest_framework import viewsets
 
 #Created at profiles_api file serializers
 from profiles_api import serializers
-
-
+from profiles_api import models
 
 class ApiView(APIView):
     """Test API View"""
@@ -71,7 +70,6 @@ class ApiView(APIView):
         """Delete an object"""
         return Response({'method': 'DELETE'})
 
-
 class ViewSet(viewsets.ViewSet):
     """Test API ViewSet"""
     serializer_class = serializers.APISerializer
@@ -83,7 +81,8 @@ class ViewSet(viewsets.ViewSet):
             'Uses model operations for functions (list, create, retrieve, update, partial-update, destroy)',
             'Simple CRUD interface for the DB',
             'Quick and simple API',
-            'Working with standard data structures',
+            'Automatically maps to URLs using Routers',
+            'Provides more functionality with les code',
         ]
 
         return Response ({'message': 'Hello', 'a_viewset': a_viewset})
@@ -120,3 +119,24 @@ class ViewSet(viewsets.ViewSet):
         return Response({'http_method': 'DELETE'})
 
 
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handle creating and updating profiles"""
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+
+
+#class ApiViewSet(viewsets.ViewSet):
+#    serializer_class = serializers.APISerializer
+
+#    def list(self,request):
+#        """Return a hello message"""
+
+#       a_viewset2 = [
+#            'Uses model operations for functions (list, create, retrieve, update, partial-update, destroy)',
+#            'Simple CRUD interface for the DB',
+#            'Quick and simple API',
+#            'Automatically maps to URLs using Routers',
+#            'Provides more functionality with les code',
+#        ]
+
+#        return Response ({'message': 'Hello', 'a_viewset': a_viewset2})
